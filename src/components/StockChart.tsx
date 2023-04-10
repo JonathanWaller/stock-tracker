@@ -8,6 +8,8 @@ interface Props {
 const StockChart: React.FC<Props> = ({stockData}) => {
     const canvasEl: any = useRef(null);
 
+    console.log('IN CHART: ', stockData)
+
   const colors = {
     purple: {
       default: "rgba(149, 76, 233, 1)",
