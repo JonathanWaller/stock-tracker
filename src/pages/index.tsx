@@ -3,11 +3,11 @@
 
 // import { InferGetStaticPropsType } from 'next'
 
-import img from '/home-background.png';
-
-import styles from '../styles/Home.module.css';
+// import styles from '../styles/Home.module.css';
 
 import styled from 'styled-components';
+
+import { breakpoints } from '@/styles/breakpoints';
 
 // export const getServerSideProps: GetServerSideProps = async(context) => {
 //   return {
@@ -19,26 +19,79 @@ import styled from 'styled-components';
 //   }
 //  }
 
+
 const Container = styled.div`
   height: 100vh;
   background-image: url('/home-background.png');
-  //  no-repeat center center fixed;
-  // background-repeate: 'no-repeat';
-  // -webkit-background-size: cover;
-  // -moz-background-size: cover;
-  // -o-background-size: cover;
-  // background-size: cover;
+  background-repeat: 'no-repeat';
+  background-size: cover;
+  overflow-y: hidden;
+
+  padding-left: 50px;
+  padding-right: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: -100px;
+
+  @media (max-width: ${breakpoints.sm}px) {
+    margin: -50px;
+  }
+
+  @media (max-width: ${breakpoints.md}px) {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+`
+
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  @media (max-width: ${breakpoints.sm}px) {
+    gap: 15px;
+  }
+`
+
+const TitleText = styled.div`
+  font-size: 100px;
+  text-align: center;
+
+  @media (max-width: ${breakpoints.lg}px) {
+    font-size: 75px;
+  }
+  @media (max-width: ${breakpoints.md}px) {
+    font-size: 50px;
+  }
+`
+
+const Description = styled.div`
+  font-size: 40px;
+  text-align: center;
+
+  @media (max-width: ${breakpoints.lg}px) {
+    font-size: 30px;
+  }
+  @media (max-width: ${breakpoints.md}px) {
+    font-size: 30px;
+  }
 `
 
 const Home = () => {
 
 	return (
     <Container>
-			<main className={styles.main}>
-			</main>
+        <TextContainer>
+          <TitleText>Stock Tracker</TitleText>
+          <Description>Find & track the performance of your favorite stocks</Description>
+        </TextContainer>
     </Container>
 	);
 }
 
 export default Home;
-
