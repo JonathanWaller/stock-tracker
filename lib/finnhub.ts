@@ -89,7 +89,7 @@ export const fetchFinancials = async(symbol: string) => {
 }
 
 export const fetchNews = async(symbol: string) => {
-  const [ priorString, todayString ] = convertDatesToString( 1 );
+  const [ priorString, todayString ] = convertDatesToString( 5 );
 
   try {
     const res = await axios.get(`${FINNHUB_API_URL}company-news`, {

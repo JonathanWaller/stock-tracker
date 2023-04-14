@@ -1,24 +1,54 @@
-import { useEffect, useCallback, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components';
 
 import StockChart from '../../components/StockChart'
+import NewsArticle from '@/components/Company/NewsArticle';
+import CompanyInfo from '@/components/Company/CompanyInfo';
+import MarketStats from '@/components/Company/MarketStats';
 
 import { fetchStockDetails } from '@/services/stockServices';
-import { detailsStats, detailsStatsMapping } from '@/utils';
+import { lightGray } from '@/styles/colors';
 
-import { Company } from '@/types/stock';
+import { Company, StockNews } from '@/types/stock';
 
-const MarketStats = styled.div`
-  border: 1px solid red;
-  width: 100%;
+const DetailsContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  gap: 100px;
+`
+
+const InfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+`
+
+const InfoGroup = styled.div`
+  display: flex;
+  flex-direction: column;
   gap: 10px;
+`
+
+const Title = styled.div`
+  font-size: 26px;
 `
 
 const MarketCategory = styled.div`
   display: flex;
   flex-direction: column;
+`
+const NewsGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+`
+
+const NewsItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid ${lightGray};
 `
 
 const Detail = () => {
@@ -46,8 +76,6 @@ const Detail = () => {
     
   }, [stock])
 
-  console.log('finalcompany: ', company)
-
   return (
       <div>
         {
@@ -55,22 +83,27 @@ const Detail = () => {
           ? 'loading'
           : error ? <div>{error}</div>
           : company?.priceHistory ? (
-            <>
-            <StockChart stockData={[company?.priceHistory]} /> 
-
-            <MarketStats>
-              {detailsStats.map( (stat:string, index: number) => (
-                <MarketCategory key={index}>
-                  <div>{stat}</div>
-                  <div>{company?.financials && company.financials[detailsStatsMapping[stat]]}</div>
-                </MarketCategory>
-              ))}
-            </MarketStats>
-
-          </>
+            <DetailsContainer>
+              <StockChart stockData={[company?.priceHistory]} /> 
+              <InfoContainer>
+                <InfoGroup>
+                  <Title>About {company.companyProfile.name}</Title>
+                      <CompanyInfo companyProfile={company.companyProfile}/>
+                </InfoGroup>
+                <InfoGroup>
+                  <Title>Stats</Title>
+                    <MarketStats  financials={company.financials}/>
+                  </InfoGroup>
+                <InfoGroup>
+                  <Title>News</Title>
+                  <NewsGroup>
+                      {company.news.map( (article: StockNews, index:number)  => <div key={index}><NewsArticle article={article}/></div>)}
+                  </NewsGroup>
+                </InfoGroup>
+              </InfoContainer>
+          </DetailsContainer>
           )
           : 'loading'
-          
         }
       </div>
   )

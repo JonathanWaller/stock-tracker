@@ -90,8 +90,8 @@ export default function PortfolioChart() {
   });
 
   return (
-    <div className="App">
-      <span>Chart.js Demo</span>
+    <div>
+      {/* <span>Chart.js Demo</span> */}
       <canvas id="myChart" ref={canvasEl} height="100" />
     </div>
   );

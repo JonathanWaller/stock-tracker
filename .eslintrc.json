@@ -1,3 +1,23 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "next/core-web-vitals"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": { "project": ["./tsconfig.json"] },
+  "plugins": [
+      "@typescript-eslint"
+  ],
+  "rules": {
+      "@typescript-eslint/strict-boolean-expressions": [
+          2,
+          {
+              "allowString" : false,
+              "allowNumber" : false
+          }
+      ],
+      "arrow-parens": [2, "as-needed"],
+      "indent": [1, "tab"]
+  }
 }
