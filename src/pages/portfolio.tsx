@@ -53,7 +53,7 @@ const Portfolio = ({apiKey}: InferGetStaticPropsType<typeof getServerSideProps> 
     return(
         <div>
             
-            Portfolio
+            {/* Portfolio */}
 
             <StockChart stockData={candleData} />    
         </div>

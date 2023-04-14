@@ -22,6 +22,7 @@ export interface CompanyProfile {
     name: string;
     ticker: string;
     weburl: string;
+    ipo: string;
 }
 
 export interface Company {

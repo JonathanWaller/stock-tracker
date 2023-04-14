@@ -1,7 +1,7 @@
 // old styles
 
 export const offwhite = '#FDFDFF';
-export const lightGray = '#FAFAFC';
+export const lightGray = 'rgb(178, 190, 181)';
 export const standardBorder = 'rgba(26, 31, 54, 0.1)';
 export const orange = '#FFA500'
 
