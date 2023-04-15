@@ -44,7 +44,7 @@ const StyledButton = styled.div<{disabled: boolean, type: 'primary'|'danger'}>`
     padding: 12px 20px;
 
     font-weight: 400;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 12px;
     text-align: center;
     font-feature-settings: 'liga' off;

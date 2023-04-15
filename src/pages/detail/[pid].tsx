@@ -21,19 +21,20 @@ import { Company, StockNews } from '@/types/stock';
 const DetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 65px;
+  padding-top: 40px;
 `
 
 const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 75px;
 `
 
 const InfoGroup = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 `
 
 const Title = styled.div`
@@ -49,6 +50,7 @@ const NewsGroup = styled.div`
   flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
+  margin-top: -30px;
 `
 
 const NewsItem = styled.div`

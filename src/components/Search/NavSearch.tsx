@@ -134,7 +134,6 @@ const NavSearch = () => {
                     searchResults.map( (result: Stock, index: number) => (
                         <ListItem key={index} onClick={()=>handleStockClick(result.symbol)}>
                             <div>{result.symbol}</div>
-                            {/* <div>{result.description}</div> */}
                             <div>{truncateStringFn(result.description, 22)}</div>
                         </ListItem>
                     ))
