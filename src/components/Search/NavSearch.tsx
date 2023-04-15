@@ -65,17 +65,16 @@ const NavSearch = () => {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const handleMenuToggle = ( event:any ) => {
-        console.log('YEP')
         setListAnchorEl( listAnchorEl ? null : event.currentTarget );
     };
 
     const handleFocus = () => {
-        console.log('focus')
+        // console.log('focus')
         // handleMenuToggle();
     }
 
     const handleBlur = () => {
-        console.log('blur')
+        // console.log('blur')
     }
 
     const handleStockClick = (stockSymbol: string) => {

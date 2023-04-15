@@ -6,22 +6,7 @@ import { convertDatesToUnix } from '@/services/dateServices';
 
 export const getCandleData = async( apiKey: string, stocks: string[]) => {
   let total;
-  console.log('TOP')
-    // Instead of the file system,
-    // fetch post data from an external API endpoint
-    // const res = await fetch('..');
-    // return res.json();
-
-    // const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-    // api_key.apiKey = apiKey;
-    // const finnhubClient = new finnhub.DefaultApi()
-
-    // finnhubClient.stockCandles("AAPL", "D", 1590988249, 1591252249, (error:any, data:any, response:any) => {
-    // console.log('response: ', data)
-    // });
-
-
-
+ 
     const api_key = finnhub.ApiClient.instance.authentications['api_key'];
     api_key.apiKey = apiKey;
     const finnhubClient = new finnhub.DefaultApi()
@@ -31,17 +16,6 @@ export const getCandleData = async( apiKey: string, stocks: string[]) => {
     // return data;
     total = data;
     });
-
-    // const promises = stocks.map((stock: string, index: number ) => {
-    //   console.log('MAP: ', stock)
-      // finnhubClient.stockCandles(stock, "D", 1590988249, 1591252249, (error:any, data:any, response:any) => {
-      //   // console.log('response: ', data)
-      //   console.log('RESPONSE: ', {...data, ...{stock}})
-      //   // return data;
-      //   return {...data, ...{stock}}
-      // });
-    // })
-
 
     /// ------------------
 
@@ -54,10 +28,7 @@ export const getCandleData = async( apiKey: string, stocks: string[]) => {
           // z = data;
 
           return data;
-          
-          // console.log('RESPONSzzzE: ', {...data, ...{stock}})
-          // return data;
-          // return {...data, ...{stock}}
+        
         });
 
         console.log('ZZZZZ: ', z)

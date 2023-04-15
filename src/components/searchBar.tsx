@@ -138,6 +138,7 @@ const SearchBar: React.FC<Props> = ({inputRef, setActiveSearch, setSearchResults
                     onChange={handleSearch}
                     type='search'
                     autoComplete="off"
+                    spellCheck='false'
                 />
             </InputInnerContainer>
     </InputContainer>

@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
+import { StockHistory } from "@/types/stock";
 import { chartColorMapping, defaultChartColor } from "@/utils";
 
 
 interface Props {
-    stockData: any;
+    stockData: StockHistory[]
 }
 
 const StockChart: React.FC<Props> = ({stockData}) => {

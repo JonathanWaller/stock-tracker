@@ -5,7 +5,7 @@ interface State {
 }
 
 const initialState: State = {
-    savedList: ['AAPL', 'PYPL', 'COIN', 'NDAQ']
+    savedList: ['PYPL', 'COIN', 'NDAQ']
 }
 
 // slice

@@ -77,20 +77,10 @@ const Detail = () => {
   const [error, setError] = useState<string>('')
   const [company, setCompany] = useState<Company>();
 
-  // const getTicker = () => {
-  //   if( company?.companyProfile?.ticker ) {
-  //     return company.companyProfile.ticker;
-  //   } 
-  //   if( company?.priceHistory.stock ) {
-  //     return company.priceHistory.stock
-  //   } 
-  //   return ''
-  // }
-
   const checkIsSaved = (ticker: string) =>  savedList.includes(ticker);
 
   const isSaved = useMemo( () => {
-    if( company?.companyProfile?.ticker ) return checkIsSaved(company.companyProfile.ticker)  
+    if( company?.companyProfile?.ticker || company?.priceHistory?.stock ) return checkIsSaved(company.companyProfile?.ticker || company.priceHistory?.stock )  
   },[company, savedList])
 
   const handleClick = (ticker: string) => isSaved ? dispatch( removeFromList( ticker) ) : dispatch(addListItem( ticker ))
@@ -101,7 +91,6 @@ const Detail = () => {
       try {
         const fetchCompanyDetails = async() => {
           const [priceHistory, financials, news, companyProfile ] = await fetchStockDetails(stock)  
-          console.log('price history: ', priceHistory)
           setCompany( {priceHistory, news, financials, companyProfile})
         }
   
@@ -119,8 +108,6 @@ const Detail = () => {
     }
   }, [stock])  
 
-  console.log('COMPANY: ', company?.priceHistory.stock)
-  
   return (
       <div>
         {
