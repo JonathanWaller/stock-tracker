@@ -3,7 +3,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## App Summary
 An app that allows users to search and compare the candlestick data of stocks.
 
-![alt text] (./public/home-background-2.png)
+![Alt text] (public/home-background-2.png)
 
 
 ## Getting Started
