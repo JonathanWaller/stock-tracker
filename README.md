@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## App Summary
+An app that allows users to search and compare the candlestick data of stocks.
+
+![alt text] (./public/home-background-2.png)
+
+
 ## Getting Started
 
 First, run the development server:
