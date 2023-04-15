@@ -26,5 +26,15 @@ This is a relatively simple CRUD app that utilizes the following:
 
 This app is purely frontend; there is no database storage for long-term saving.
 
+![Screen Shot 2023-04-15 at 12 18 50 PM](https://user-images.githubusercontent.com/36019636/232239616-178df521-145e-4dae-8e1d-8981a3db69d6.png)
+
+
+
+
+
+
+
+
+
 
 
