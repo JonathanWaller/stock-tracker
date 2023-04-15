@@ -1,11 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 
 import StockChart from '../../components/StockChart'
 import NewsArticle from '@/components/Company/NewsArticle';
 import CompanyInfo from '@/components/Company/CompanyInfo';
 import MarketStats from '@/components/Company/MarketStats';
+import Button from '@/components/Button';
+
+import { addListItem, removeFromList } from '@/redux/listSlice';
+import { savedListSelector } from '@/redux/listSelector';
+import { RootState } from '@/store';
 
 import { fetchStockDetails } from '@/services/stockServices';
 import { lightGray } from '@/styles/colors';
@@ -51,15 +57,26 @@ const NewsItem = styled.div`
   border-bottom: 1px solid ${lightGray};
 `
 
+const ButtonContainer = styled.div`
+  width: 200px;
+`
+
 const Detail = () => {
   const router = useRouter()
+  const dispatch = useDispatch();
   const { stock } = router.query;
+  const { savedList } = useSelector( ( state: RootState ) => ( { savedList: savedListSelector( state )}))
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string>('')
   const [company, setCompany] = useState<Company>();
 
+  const checkIsSaved = (ticker: string) =>  savedList.includes(ticker);
 
-  console.log('Company: ', company)
+  const isSaved = useMemo( () => {
+    if( company?.companyProfile?.ticker ) return checkIsSaved(company.companyProfile.ticker)  
+  },[company, savedList])
+
+  const handleClick = (ticker: string) => isSaved ? dispatch( removeFromList( ticker) ) : dispatch(addListItem( ticker ))
 
   useEffect( () => {
     if( stock && typeof stock === 'string' ) {
@@ -76,9 +93,8 @@ const Detail = () => {
         setLoading( false );
       }
     }
-    
-  }, [stock])
-
+  }, [stock])  
+  
   return (
       <div>
         {
@@ -87,7 +103,15 @@ const Detail = () => {
           : error ? <div>{error}</div>
           : company?.priceHistory ? (
             <DetailsContainer>
-              <StockChart stockData={[company?.priceHistory]} /> 
+              <StockChart stockData={[company.priceHistory]} /> 
+              <ButtonContainer>
+                <Button 
+                  type={isSaved ? 'danger' : 'primary'}
+                  onClick={()=>{handleClick(company.companyProfile.ticker)}}
+                >
+                  {isSaved ? '- Remove from list' : '+ Add to list' }
+                </Button>      
+              </ButtonContainer>
               <InfoContainer>
                 <InfoGroup>
                   <Title>About {company.companyProfile.name}</Title>

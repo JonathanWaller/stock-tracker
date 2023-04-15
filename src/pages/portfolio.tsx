@@ -1,20 +1,14 @@
 import { useEffect, useState } from 'react';
-import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next';
+import { GetServerSideProps } from 'next';
 import { InferGetStaticPropsType } from 'next'
 
-import { subMonths } from 'date-fns';
-const finnhub = require('finnhub');
-
-import { getCandleData } from 'lib/stocks';
 import { fetchStockCandles } from 'lib/finnhub';
 
-// import PortfolioChart from './chart';
+import store from '@/store';
+
 import StockChart from '../components/StockChart';
 
-// import { stockCodeMapping } from '../utils';
-
 import { formatCandleData } from '../services/stockServices';
-import { stockCodeMapping } from '@/utils';
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
     return {
@@ -26,16 +20,15 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
 
 const Portfolio = ({apiKey}: InferGetStaticPropsType<typeof getServerSideProps> ) => {
     const [ candleData, setCandleData ] = useState<any>()
+    const { savedList } = store.getState().list;
 
     useEffect( () => {
-        const plzWork = async( stocks: string[]) => {
+        const fetchData = async( stocks: string[]) => {
 
-            const unresolvedPromises = stocks.map( async (stock: string, index: number ) => {
+            const unresolvedPromises = stocks.map( async (stock: string ) => {
                 try {
                     const helpMe: any = await fetchStockCandles(stock)
-
                     return formatCandleData( helpMe, stock )
-
                 } catch ( e: any) {
                     console.log('bummer dodue')
                 }
@@ -43,8 +36,7 @@ const Portfolio = ({apiKey}: InferGetStaticPropsType<typeof getServerSideProps> 
             const results = await Promise.all(unresolvedPromises);  
             setCandleData( results )
         }
-
-        plzWork(['AAPL', 'TSLA']);
+        fetchData(savedList)
       }, [])
 
 
@@ -52,9 +44,6 @@ const Portfolio = ({apiKey}: InferGetStaticPropsType<typeof getServerSideProps> 
 
     return(
         <div>
-            
-            {/* Portfolio */}
-
             <StockChart stockData={candleData} />    
         </div>
     )
