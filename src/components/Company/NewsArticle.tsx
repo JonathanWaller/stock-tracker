@@ -5,12 +5,14 @@ import { StockNews } from "@/types/stock";
 
 import { getReadableTimeSince } from "@/services/dateServices";
 
-const NewsGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-`
+// const NewsGroup = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   gap: 10px;
+//   margin-top: 20px;
+//   border: 1px solid green;
+//   margin-bottom: 20px;
+// `
 
 const NewsItem = styled.div`
     display: flex;
@@ -24,6 +26,7 @@ const Container = styled.a`
     gap: 15px;
     border-bottom: 1px solid ${lightGray};
     padding-bottom: 30px;
+    padding-top: 30px;
 `
 const Source = styled.div`
     color: ${tertiaryDark};
@@ -31,13 +34,13 @@ const Source = styled.div`
     gap: 10px;
 `
 const Headline = styled.div`
-    font-size: 25px;
+    font-size: 20px;
 `
 
 const Info = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
 `
 
 const Summary = styled.div`

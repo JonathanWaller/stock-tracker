@@ -64,10 +64,7 @@ const OptionRow = styled.div`
     font-size: 12px;
     line-height: 16px;
     letter-spacing: 0.03em;
-
     padding: 20px;
-
-    border: 1px solid yellow;
 
     &:not(:last-child) { 
         border-bottom: 1px solid ${SUPPORT_APP_LIGHT_GRAY};
