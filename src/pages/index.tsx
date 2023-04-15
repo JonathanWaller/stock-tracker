@@ -22,7 +22,7 @@ import { breakpoints } from '@/styles/breakpoints';
 
 const Container = styled.div`
   height: 100vh;
-  background-image: url('/home-background.png');
+  background-image: url('/home-background-2.png');
   background-repeat: 'no-repeat';
   background-size: cover;
   overflow-y: hidden;

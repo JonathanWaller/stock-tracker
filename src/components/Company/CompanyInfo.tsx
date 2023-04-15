@@ -1,10 +1,7 @@
 import styled from "styled-components";
-import { lightGray, secondaryDark, tertiaryDark, SUPPORT_APP_LIGHT_GRAY } from "@/styles/colors";
+import { lightGray, tertiaryDark} from "@/styles/colors";
 
 import { CompanyProfile } from "@/types/stock";
-
-import { getReadableTimeSince } from "@/services/dateServices";
-import { detailsInfoMapping, detailsInfo } from "@/utils";
 
 const Table = styled.div`
     display: flex;

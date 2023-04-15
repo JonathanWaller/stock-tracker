@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { debounce } from "lodash";
 import { Search } from "react-feather";
 
 import { fetchSearch } from "lib/finnhub";
 import { Stock } from "@/types/stock";
 
-import { SUPPORT_APP_LIGHT_GRAY, SUPPORT_APP_BLACK, inputHoverFill, inputFill, lightGray } from "@/styles/colors";
+import { LIGHT_GRAY, inputHoverFill, inputFill, lightGray } from "@/styles/colors";
 
 import styled from "styled-components";
 
@@ -61,16 +60,16 @@ const Input = styled.input`
      }
 
     &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color: ${SUPPORT_APP_LIGHT_GRAY}66;
+        color: ${LIGHT_GRAY}66;
         opacity: 1; /* Firefox */
     }
 
     &:-ms-input-placeholder { /* Internet Explorer 10-11 */
-        color: ${SUPPORT_APP_LIGHT_GRAY}66;
+        color: ${LIGHT_GRAY}66;
     }
 
     &::-ms-input-placeholder { /* Microsoft Edge */
-        color: ${SUPPORT_APP_LIGHT_GRAY}66;
+        color: ${LIGHT_GRAY}66;
     }
 `
 
@@ -139,6 +138,7 @@ const SearchBar: React.FC<Props> = ({inputRef, setActiveSearch, setSearchResults
                     onChange={handleSearch}
                     type='search'
                     autoComplete="off"
+                    spellCheck='false'
                 />
             </InputInnerContainer>
     </InputContainer>

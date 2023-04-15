@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
+import { StockHistory } from "@/types/stock";
 import { chartColorMapping, defaultChartColor } from "@/utils";
 
 
 interface Props {
-    stockData: any;
+    stockData: StockHistory[]
 }
 
 const StockChart: React.FC<Props> = ({stockData}) => {
@@ -72,6 +73,11 @@ const StockChart: React.FC<Props> = ({stockData}) => {
       data: data,
       options: {
         responsive: true,
+        scales: {
+          y: {
+            beginAtZero: data.datasets.length > 1 ? true : false
+          }
+        },
         plugins: {
           legend: {
             position: 'top',
@@ -90,12 +96,7 @@ const StockChart: React.FC<Props> = ({stockData}) => {
     };
   });
 
-  return (
-    <div >
-      {/* <span>Chart.js Demo</span> */}
-      <canvas id="myChart" ref={canvasEl} height="100" />
-    </div>
-  );
+  return <canvas id="myChart" ref={canvasEl} height="100" />;
 }
 
 export default StockChart;

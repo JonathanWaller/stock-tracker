@@ -25,8 +25,13 @@ export interface CompanyProfile {
     ipo: string;
 }
 
+export interface StockHistory {
+    stock: string;
+    stockData: {high: number}[]
+}
+
 export interface Company {
-    priceHistory: number[];
+    priceHistory: StockHistory;
     news: StockNews[];
     financials:StockFinancials;
     companyProfile: CompanyProfile

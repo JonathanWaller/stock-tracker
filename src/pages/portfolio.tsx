@@ -4,25 +4,33 @@ import { InferGetStaticPropsType } from 'next'
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useRouter } from "next/router";
+import useWindowWidth from 'react-hook-use-window-width';
 
 import { fetchStockCandles } from 'lib/finnhub';
-
 import { inputHoverFill, lightGray } from '@/styles/colors';
 
 import StockChart from '../components/StockChart';
 import Button from '@/components/Button';
+import Loader from '@/components/Loader';
+import Error from '@/components/Error';
 
 import { formatCandleData } from '../services/stockServices';
 
 import { RootState } from '@/store';
 import { addListItem, removeFromList } from '@/redux/listSlice';
 import { savedListSelector } from '@/redux/listSelector';
+import { breakpoints } from '@/styles/breakpoints';
 
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 50px;
     padding-top: 40px;
+
+    @media( max-width: ${breakpoints.sm}px) {
+        align-items: center;
+        padding-top: 60px;
+    }
 `
 
 const ListContainer = styled.div`
@@ -42,6 +50,12 @@ const ListItem = styled.div`
         cursor: pointer;
         border-radius: 4px;
         background: ${inputHoverFill};
+    }
+
+    @media( max-width: ${breakpoints.sm}px) {
+        // border: 1px solid green;
+        flex-direction: column;
+        gap: 10px;
     }
 `
 
@@ -72,8 +86,11 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
 const Portfolio = ({apiKey}: InferGetStaticPropsType<typeof getServerSideProps> ) => {
     const dispatch = useDispatch();
     const router = useRouter();
+    const width = useWindowWidth();
     const { savedList } = useSelector( ( state: RootState ) => ( { savedList: savedListSelector( state )}))
     const [ candleData, setCandleData ] = useState<any>()
+    const [loading, setLoading] = useState<boolean>(true)
+    const [error, setError] = useState<string>('')
 
     const isSaved = (ticker: string) => savedList.includes(ticker);
 
@@ -93,7 +110,10 @@ const Portfolio = ({apiKey}: InferGetStaticPropsType<typeof getServerSideProps> 
                         const helpMe: any = await fetchStockCandles(stock)
                         return formatCandleData( helpMe, stock )
                     } catch ( e: any) {
-                        console.log('bummer dodue')
+                        console.log(`Error loading stock data - ${e.message}`)
+                        setError('Error retrieving list data')
+                    } finally {
+                        setLoading( false )
                     }
                 })
                 const results = await Promise.all(unresolvedPromises);  
@@ -105,31 +125,33 @@ const Portfolio = ({apiKey}: InferGetStaticPropsType<typeof getServerSideProps> 
       }, [savedList])
 
     return(
-        <Container>
-            <StockChart stockData={candleData} />   
-
-            <Title>Your List</Title>
-            <ListContainer>
+        <>
             {
-                savedList.length
-                ?
-                savedList.map( (item: string, index: number) => (
-                    <ListItem key={index} onClick={()=>handleStockClick(item)}>
-                        <div>{item}</div>
-                        <ButtonContainer>
-                        <Button 
-                            type={isSaved(item) ? 'danger' : 'primary'}
-                            onClick={(e)=>{handleClick(e, item)}}
-                            >
-                            {isSaved(item) ? '- Remove from list' : '+ Add to list' }
-                            </Button> 
-                        </ButtonContainer>
-                    </ListItem>
-                ))
+                loading ? <Loader />
+                : error ? <Error errorText={error} />
+                : savedList.length ?
+                <Container>
+                    { width > breakpoints.sm && <StockChart stockData={candleData} />   }
+                    <Title>Your List</Title>
+                    {
+                        savedList.map( (item: string, index: number) => (
+                            <ListItem key={index} onClick={()=>handleStockClick(item)}>
+                                <div>{item}</div>
+                                <ButtonContainer>
+                                <Button 
+                                    type={isSaved(item) ? 'danger' : 'primary'}
+                                    onClick={(e)=>{handleClick(e, item)}}
+                                    >
+                                    {isSaved(item) ? '- Remove from list' : '+ Add to list' }
+                                    </Button> 
+                                </ButtonContainer>
+                            </ListItem>
+                        ))
+                    } 
+                </Container>
                 : <EmptyText>You do not have any items on your list.</EmptyText>
-            } 
-            </ListContainer>
-        </Container>
+            }
+        </>
     )
 }
 
