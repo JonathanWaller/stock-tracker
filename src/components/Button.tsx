@@ -2,29 +2,29 @@ import React from 'react'
 import CSS from 'csstype';
 import styled from 'styled-components'
 
-import { SUPPORT_APP_BLACK, SUPPORT_APP_LIGHT_GRAY, SUPPORT_APP_RED, SUPPORT_APP_WHITE, SUPPORT_APP_GREEN } from '../styles/colors';
+import { BLACK, LIGHT_GRAY, RED, WHITE, GREEN } from '../styles/colors';
 
 const StyledButton = styled.div<{disabled: boolean, type: 'primary'|'danger'}>`
     border-radius: 4px;
 
     ${({disabled, type}) => disabled ? `
-        background-color: ${SUPPORT_APP_LIGHT_GRAY};
-        color: ${SUPPORT_APP_BLACK}66;
+        background-color: ${LIGHT_GRAY};
+        color: ${BLACK}66;
 
         &:hover {
             cursor: not-allowed;
         }
     ` : type === 'danger' ? `
-        background-color: ${SUPPORT_APP_RED};
-        color: ${SUPPORT_APP_WHITE};
+        background-color: ${RED};
+        color: ${WHITE};
 
         &:hover {
             cursor: pointer;
             text-decoration: underline;
         }
     ` : `
-        background-color: ${SUPPORT_APP_GREEN};
-        color: ${SUPPORT_APP_WHITE};
+        background-color: ${GREEN};
+        color: ${WHITE};
 
         &:hover {
             cursor: pointer;

@@ -5,7 +5,7 @@ import { InferGetStaticPropsType } from 'next'
 import styled from 'styled-components';
 
 import SearchBar from "@/components/SearchBar";
-import SearchList from '@/components/searchList';
+import SearchList from '@/components/SearchList';
 
 import { Stock } from '@/types/stock';
 

@@ -1,20 +1,3 @@
-
-// const dummyData = {
-//     'apl': [{date: 2010, price: 150.18}, {date: 2011, price: 151.07}, {date: 2012, price: 148.11}, {date: 2013, price: 142.92}, {date: 2014, price: 145.47}, {date: 2015, price: 143.32}, {date: 2016, price: 131.86}, {date: 2017, price: 130.03}, {date: 2018, price: 130.73}, {date: 2019 ,price: 133.41}],
-//     'tsla': [{date: 2010, price: 135.18}, {date: 2011, price: 136.17}, {date: 2012, price: 139.99}, {date: 2013, price: 137.23}, {date: 2014, price: 141.35}, {date: 2015, price: 144.23}, {date: 2016, price: 132.23}, {date: 2017, price: 133.23}, {date: 2018, price: 133.88}, {date: 2019, price: 135.88}]
-// }
-
-// const Chart = () => {
-
-//     return(
-//         <div>Chart</div>
-//     )
-// }
-
-// export default Chart;
-
-
-
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 

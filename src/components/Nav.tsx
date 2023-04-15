@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import styled from 'styled-components';
-
 import NavSearch from './Search/NavSearch';
 
 const NavContainer = styled.div`

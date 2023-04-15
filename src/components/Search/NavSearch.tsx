@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import Link from 'next/link'
 import { useRouter } from "next/router";
 import SearchBar from "../SearchBar";
 import styled from "styled-components";
@@ -14,14 +13,12 @@ const Popover = styled.div<{isActive?: boolean}>`
     position: absolute;
     top: 2.5rem;
     right: 0;
-    // min-width: 6rem;
     width: 100%;
     padding: .5rem;
     background: transparent;
     color: #FFFFFF;
     backdrop-filter: blur(5px) contrast(.8);
     border-radius: 4px;
-    // border: 1px solid red;
     max-height: 300px;
     overflow-y: scroll;
 
@@ -45,7 +42,6 @@ const ListItem = styled.div`
     padding: 10px;
     gap: 3px;
 
-
     &:hover {
         cursor: pointer;
         border-radius: 4px;
@@ -64,7 +60,6 @@ const EmptyResult = styled.div`
 const NavSearch = () => {
     const [ searchResults, setSearchResults ] = useState<Stock[]>([])
     const [ listAnchorEl, setListAnchorEl ] = useState( null );
-    const [ searchValue, setSearchValue ] = useState('');
     const router = useRouter();
     const settingsRef = useRef<any>();
     const inputRef = useRef<HTMLInputElement>(null);
@@ -124,7 +119,6 @@ const NavSearch = () => {
                 setSearchResults={setSearchResults}
                 handleFocus={ handleFocus}
                 handleBlur={ handleBlur }
-                
             />
             <Popover isActive={Boolean(listAnchorEl)}>
                 <ListContainer>
@@ -143,8 +137,6 @@ const NavSearch = () => {
             </Popover>
         </div>
     )
-    
-    
 }
 
 export default NavSearch;

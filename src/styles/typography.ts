@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { breakpointsOld } from './breakpoints'
-import { primaryDark, red, secondaryDark, SUPPORT_APP_BLACK, SUPPORT_APP_RED, tertiaryDark } from './colors'
+import {secondaryDark, BLACK, RED, tertiaryDark } from './colors'
 
 export const sora = `font-family: Sora, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;`
 export const manrope = `font-family: Manrope, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;`
@@ -13,7 +13,7 @@ export const LabelText = styled.h6`
     font-size: 14px;
     line-height: 17px;
 
-    color: ${SUPPORT_APP_BLACK};
+    color: ${BLACK};
 `
 
 export const HeaderText = styled.h1`
@@ -24,7 +24,7 @@ export const HeaderText = styled.h1`
     font-size: 20px;
     line-height: 26px;
     letter-spacing: 0.01em;
-    color: ${SUPPORT_APP_BLACK};
+    color: ${BLACK};
 
     word-break: break-word;
 `
@@ -40,7 +40,7 @@ export const SubheaderText = styled.p`
 `
 
 export const NavLinkHeader = styled.h3`
-    color: ${SUPPORT_APP_BLACK};
+    color: ${BLACK};
     ${sora}
     font-weight: 600;
     font-size: 16px;
@@ -74,7 +74,7 @@ export const LargeHeader = styled.h1`
     font-size: 32px;
     line-height: 40px;
 
-    color: ${SUPPORT_APP_BLACK};
+    color: ${BLACK};
 
     @media only screen and (max-width: ${breakpointsOld.sm}px) {
         font-size: 24px;
@@ -87,7 +87,7 @@ export const SettingsSectionLabel = styled.h4`
     font-size: 14px;
     line-height: 19px;
     letter-spacing: 0.03em;
-    color: ${SUPPORT_APP_BLACK}66;
+    color: ${BLACK}66;
 `
 
 export const SettingsItemLabel = styled.h6`
@@ -96,7 +96,7 @@ export const SettingsItemLabel = styled.h6`
     line-height: 16px;
     letter-spacing: 0.03em;
     text-transform: uppercase;
-    color: ${SUPPORT_APP_BLACK}4D;
+    color: ${BLACK}4D;
 `
 
 export const SecondaryActionText = styled.p`
@@ -106,7 +106,7 @@ export const SecondaryActionText = styled.p`
     line-height: 16px;
     font-feature-settings: 'liga' off;
 
-    color: ${SUPPORT_APP_BLACK}66;
+    color: ${BLACK}66;
 `
 
 export const ErrorText = styled.p`
@@ -115,5 +115,5 @@ export const ErrorText = styled.p`
     line-height: 16px;
     letter-spacing: 0.01em;
 
-    color: ${SUPPORT_APP_RED};
+    color: ${RED};
 `

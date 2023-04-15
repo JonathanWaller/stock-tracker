@@ -33,10 +33,10 @@ export const inputHoverFill = 'rgba(58, 61, 69, 96)';
 export const green = '#71BC78'
 
 
-// NEW SUPPORT APP COLORS ---------------------------------------------
+// NEW APP COLORS ---------------------------------------------
 
-export const SUPPORT_APP_BLACK = '#131013'
-export const SUPPORT_APP_WHITE = '#FCFCFC'
-export const SUPPORT_APP_LIGHT_GRAY = '#EDEDED'
-export const SUPPORT_APP_RED = '#D45454'
-export const SUPPORT_APP_GREEN = '#3C7D32'
+export const BLACK = '#131013'
+export const WHITE = '#FCFCFC'
+export const LIGHT_GRAY = '#EDEDED'
+export const RED = '#D45454'
+export const GREEN = '#3C7D32'
