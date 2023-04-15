@@ -1,7 +1,7 @@
 ## App Summary
 An app that allows users to search and compare the candlestick data of stocks.
 
-![Alt text] (public/home-background-2.png)
+![Screen Shot 2023-04-15 at 12 18 30 PM](https://user-images.githubusercontent.com/36019636/232239385-a94e40df-d6d4-4829-8c9d-1fcf69475af7.png)
 
 
 ## Getting Started
