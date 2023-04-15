@@ -45,7 +45,7 @@ const MarketStats: React.FC<Props> = ({ financials }) => {
             {detailsStats.map( (stat:string, index:number) => (
                 <MarketCategory key={index}>
                      <Title>{stat}</Title>
-                    <div>{financials && financials[detailsStatsMapping[stat]]}</div>
+                    <div>{financials && financials[detailsStatsMapping[stat]] || 'N/A'}</div>
                 </MarketCategory>
             ))}
         </Container>

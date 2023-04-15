@@ -11,6 +11,7 @@ const NavContainer = styled.div`
     border: 1px solid red;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     gap: 10px;
     background: black;
 
@@ -21,7 +22,7 @@ const NavContainer = styled.div`
 
     padding: 10px;
 
-    border: 1px solid green;
+    border: 1px solid yellow;
 `
 
 const Nav = () => {
@@ -29,19 +30,19 @@ const Nav = () => {
 
     return(
         <NavContainer>
-            <div>
+
                 <Link href={'/portfolio'}>Portfolio</Link>
-            </div>
-            <div>
+      
+   
                 {/* Watchlist */}
                 <Link href={'/portfolio'}>Watchlist</Link>
-            </div>
+
             {/* <div>
                 <Link href={'/search'}>Search</Link>
             </div> */}
-            <div>
+            
                 <NavSearch />
-            </div>
+      
         </NavContainer>
     )
 }
