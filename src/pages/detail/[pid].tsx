@@ -2,33 +2,45 @@ import { useEffect, useState, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import useWindowWidth from 'react-hook-use-window-width';
 
 import StockChart from '../../components/StockChart'
 import NewsArticle from '@/components/Company/NewsArticle';
 import CompanyInfo from '@/components/Company/CompanyInfo';
 import MarketStats from '@/components/Company/MarketStats';
 import Button from '@/components/Button';
+import Loader from '@/components/Loader';
+import Error from '@/components/Error';
 
 import { addListItem, removeFromList } from '@/redux/listSlice';
 import { savedListSelector } from '@/redux/listSelector';
 import { RootState } from '@/store';
 
 import { fetchStockDetails } from '@/services/stockServices';
-import { lightGray } from '@/styles/colors';
 
 import { Company, StockNews } from '@/types/stock';
+import { breakpoints } from '@/styles/breakpoints';
 
 const DetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 65px;
   padding-top: 40px;
+
+  @media( max-width: ${breakpoints.sm}px) {
+    gap: 40px;
+    padding-top: 60px;
+  }
 `
 
 const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 75px;
+
+  @media( max-width: ${breakpoints.sm}px) {
+    gap: 40px;
+  }
 `
 
 const InfoGroup = styled.div`
@@ -41,10 +53,6 @@ const Title = styled.div`
   font-size: 26px;
 `
 
-const MarketCategory = styled.div`
-  display: flex;
-  flex-direction: column;
-`
 const NewsGroup = styled.div`
   display: flex;
   flex-direction: column;
@@ -53,24 +61,31 @@ const NewsGroup = styled.div`
   margin-top: -30px;
 `
 
-const NewsItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  border-bottom: 1px solid ${lightGray};
-`
-
 const ButtonContainer = styled.div`
   width: 200px;
 `
 
+// const Loading
+
 const Detail = () => {
   const router = useRouter()
   const dispatch = useDispatch();
+  const width = useWindowWidth();
   const { stock } = router.query;
   const { savedList } = useSelector( ( state: RootState ) => ( { savedList: savedListSelector( state )}))
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string>('')
   const [company, setCompany] = useState<Company>();
+
+  // const getTicker = () => {
+  //   if( company?.companyProfile?.ticker ) {
+  //     return company.companyProfile.ticker;
+  //   } 
+  //   if( company?.priceHistory.stock ) {
+  //     return company.priceHistory.stock
+  //   } 
+  //   return ''
+  // }
 
   const checkIsSaved = (ticker: string) =>  savedList.includes(ticker);
 
@@ -81,10 +96,12 @@ const Detail = () => {
   const handleClick = (ticker: string) => isSaved ? dispatch( removeFromList( ticker) ) : dispatch(addListItem( ticker ))
 
   useEffect( () => {
+    const controller = new AbortController();
     if( stock && typeof stock === 'string' ) {
       try {
         const fetchCompanyDetails = async() => {
           const [priceHistory, financials, news, companyProfile ] = await fetchStockDetails(stock)  
+          console.log('price history: ', priceHistory)
           setCompany( {priceHistory, news, financials, companyProfile})
         }
   
@@ -95,21 +112,31 @@ const Detail = () => {
         setLoading( false );
       }
     }
+
+    return () => {
+      // cancel the request on cleanup
+      controller.abort()
+    }
   }, [stock])  
+
+  console.log('COMPANY: ', company?.priceHistory.stock)
   
   return (
       <div>
         {
           loading
-          ? 'loading'
-          : error ? <div>{error}</div>
+          ? <Loader />
+          : error ? <Error errorText={error} />
           : company?.priceHistory ? (
             <DetailsContainer>
-              <StockChart stockData={[company.priceHistory]} /> 
+              { width > breakpoints.sm && <StockChart stockData={[company.priceHistory]} />  }
+              
               <ButtonContainer>
                 <Button 
                   type={isSaved ? 'danger' : 'primary'}
-                  onClick={()=>{handleClick(company.companyProfile.ticker)}}
+
+                  // @ts-ignore
+                  onClick={()=>{handleClick(company.companyProfile?.ticker || company.priceHistory?.stock)}}
                 >
                   {isSaved ? '- Remove from list' : '+ Add to list' }
                 </Button>      
