@@ -1,9 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
-import { chartColorMapping } from "@/utils";
+import { chartColorMapping, defaultChartColor } from "@/utils";
 
-import { Colors } from "chart.js/auto";
 
 interface Props {
     stockData: any;
@@ -90,14 +89,8 @@ const StockChart: React.FC<Props> = ({stockData}) => {
             return {
                 label: x.stock,
                 data: x.stockData.high,
-                // borderColor: 'yellow'
-                // borde
-                // borderColor: chartColorMapping[x.stock],
-                // borderColor: 'rgba(255, 0, 0, 1.1)',
-                // backgroundColor: 'rgba(255, 0, 0, .4)',
-
-                borderColor: chartColorMapping[x.stock].lineColor,
-                backgroundColor: chartColorMapping[x.stock].background
+                borderColor: chartColorMapping[x.stock]?.lineColor || defaultChartColor.lineColor,
+                backgroundColor: chartColorMapping[x.stock]?.background  || defaultChartColor.background
             }
         }) : []
     };

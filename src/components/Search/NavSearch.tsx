@@ -2,23 +2,26 @@ import { useEffect, useState, useRef } from "react";
 import Link from 'next/link'
 import { useRouter } from "next/router";
 import SearchBar from "../SearchBar";
+import styled from "styled-components";
 
 import { Stock } from "@/types/stock";
 
-import styled from "styled-components";
+import { tertiaryDark, linkHoverFill, inputHoverFill, primaryButtonHover } from "@/styles/colors";
+import { truncateStringFn } from "@/services/generalServices";
 
 const Popover = styled.div<{isActive?: boolean}>`
     display: ${({isActive}) => isActive ? 'block' : 'none' };
     position: absolute;
-    top: 2rem;
+    top: 2.5rem;
     right: 0;
-    min-width: 6rem;
+    // min-width: 6rem;
+    width: 100%;
     padding: .5rem;
     background: transparent;
     color: #FFFFFF;
     backdrop-filter: blur(5px) contrast(.8);
     border-radius: 4px;
-    border: 1px solid red;
+    // border: 1px solid red;
     max-height: 300px;
     overflow-y: scroll;
 
@@ -30,9 +33,32 @@ const Popover = styled.div<{isActive?: boolean}>`
 const ListContainer = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 25px;
-    border: 1px solid green;
+    // gap: 25px;
+    gap: 5px;
     height: 100%;
+    padding-top: 5px;
+    width: 100%;
+`
+
+const ListItem = styled.div`
+    flex-direction: column;
+    padding: 10px;
+    gap: 3px;
+
+
+    &:hover {
+        cursor: pointer;
+        border-radius: 4px;
+        background: ${inputHoverFill};
+    }
+`
+
+const EmptyResult = styled.div`
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: ${tertiaryDark};
 `
 
 const NavSearch = () => {
@@ -90,8 +116,7 @@ const NavSearch = () => {
     return(
         <div ref={settingsRef}
             onClick={ handleMenuToggle }
-            style={{border: '1px solid red', position: 'relative'}}
-
+            style={{position: 'relative'}}
         >
             <SearchBar 
                 inputRef={inputRef}
@@ -102,33 +127,18 @@ const NavSearch = () => {
                 
             />
             <Popover isActive={Boolean(listAnchorEl)}>
-                {/* <ul
-                    className="nav_settingsPopoverList"
-                >
-                    <li
-                        className="nav_settingsPopoverItem"
-                    >
-                        <div
-                        >
-                            <span>
-                                About
-                            </span>
-                        </div>
-                    </li>
-                
-                
-                </ul> */}
                 <ListContainer>
                 {
+                    searchResults.length
+                    ?
                     searchResults.map( (result: Stock, index: number) => (
-                        <div key={index} onClick={()=>handleStockClick(result.symbol)}>
-                            {/* <Link href='/detail/search?search=tsla'> */}
-                            {/* <Link href={`/detail/search?stock=${result.symbol}`}> */}
-                                <div>{result.symbol}</div>
-                                <div>{result.description}</div>
-                            {/* </Link> */}
-                        </div>
+                        <ListItem key={index} onClick={()=>handleStockClick(result.symbol)}>
+                            <div>{result.symbol}</div>
+                            {/* <div>{result.description}</div> */}
+                            <div>{truncateStringFn(result.description, 22)}</div>
+                        </ListItem>
                     ))
+                    : <EmptyResult>Results will appear here...</EmptyResult>
                 }
                 </ListContainer>
             </Popover>

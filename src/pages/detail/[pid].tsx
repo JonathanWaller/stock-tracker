@@ -58,6 +58,9 @@ const Detail = () => {
   const [error, setError] = useState<string>('')
   const [company, setCompany] = useState<Company>();
 
+
+  console.log('Company: ', company)
+
   useEffect( () => {
     if( stock && typeof stock === 'string' ) {
       try {
@@ -97,7 +100,10 @@ const Detail = () => {
                 <InfoGroup>
                   <Title>News</Title>
                   <NewsGroup>
-                      {company.news.map( (article: StockNews, index:number)  => <div key={index}><NewsArticle article={article}/></div>)}
+                      {company.news.length
+                        ? company.news.map( (article: StockNews, index:number)  => <div key={index}><NewsArticle article={article}/></div>)
+                        : <div>No news to display</div>
+                      }
                   </NewsGroup>
                 </InfoGroup>
               </InfoContainer>

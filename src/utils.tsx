@@ -29,3 +29,8 @@ export const chartColorMapping: {[key: string]: {lineColor: string, background: 
     'TSLA': { lineColor: 'rgba(255, 0, 0, .9)', background: 'rgba(255, 0, 0, .4)' },
     'HOOD': { lineColor: 'rgba(11, 156, 49, .9)', background: 'rgba(11, 156, 49, .4)' }
 }
+
+export const defaultChartColor: {lineColor: string, background: string} = {
+    lineColor: 'rgba(246, 36, 89, .9)' ,
+    background: 'rgba(246, 36, 89, .4)'
+}

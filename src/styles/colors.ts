@@ -27,6 +27,8 @@ export const redHoverFill = '#D454540F'
 export const errorContainerBG = '#F4B8B8';
 
 export const linkHoverFill = 'rgba(60, 66, 87, 0.06)'
+export const inputFill = 'rgb(58, 61, 69)'
+export const inputHoverFill = 'rgba(58, 61, 69, 96)';
 
 export const green = '#71BC78'
 

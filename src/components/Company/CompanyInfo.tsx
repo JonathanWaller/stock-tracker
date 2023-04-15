@@ -64,21 +64,21 @@ const CompanyInfo: React.FC<Props> = ({companyProfile}) => {
             <ColumnOne>
                 <Group>
                     <Title>Industry</Title>
-                    <div>{companyProfile.finnhubIndustry}</div>
+                    <div>{companyProfile.finnhubIndustry || 'N/A'}</div>
                 </Group>
                 <Group>
                     <Title>Ticker</Title>
-                    <div>{companyProfile.ticker}</div>
+                    <div>{companyProfile.ticker || 'N/A'}</div>
                 </Group>
             </ColumnOne>
             <ColumnTwo>
                 <Group>
                     <Title>Company site</Title>
-                    <div>{companyProfile.weburl}</div>
+                    <div>{companyProfile.weburl || 'N/A'}</div>
                 </Group>
                 <Group>
                     <Title>IPO Date</Title>
-                    <div>{companyProfile.ipo}</div>
+                    <div>{companyProfile.ipo || 'N/A'}</div>
                 </Group>
             </ColumnTwo>
         </Table>
