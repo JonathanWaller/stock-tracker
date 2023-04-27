@@ -4,15 +4,12 @@ import { Search } from "react-feather";
 import { fetchSearch } from "lib/finnhub";
 import { Stock } from "@/types/stock";
 
-import { LIGHT_GRAY, inputHoverFill, inputFill, lightGray } from "@/styles/colors";
+import { LIGHT_GRAY, inputHoverFill, inputFill } from "@/styles/colors";
 
 import styled from "styled-components";
 
 const InputContainer = styled.div`
-    // width: 100%;
     width: 250px;
-
-    // border: 1px solid ${lightGray};
     border-radius: 12px;
 
     &:hover {
@@ -24,7 +21,6 @@ const InputInnerContainer = styled.div`
     position: relative;
     width: 100%;
     height: 40px;
-
     display: flex;
     border-radius: 4px;
     border: none;
@@ -38,7 +34,6 @@ const InputInnerContainer = styled.div`
 
 const Input = styled.input`
     width: 100%;
-
     font-weight: 400;
     font-size: 13px;
     line-height: 13px;
@@ -47,7 +42,6 @@ const Input = styled.input`
     border: 1px solid transparent;
     background: transparent;
     font-size: 16px;
-   
 
     &:active, &:focus, &:focus-visible {
         border: none;
@@ -75,7 +69,6 @@ const Input = styled.input`
 
 const LeftSideIconContainer = styled.div`
     height: 100%;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,7 +95,7 @@ const SearchBar: React.FC<Props> = ({inputRef, setActiveSearch, setSearchResults
         }
 
         try {
-            const res: any= await fetchSearch(e.target.value);
+            const res: any = await fetchSearch(e.target.value);
             setSearchResults( res )
             setActiveSearch( true )
         } catch ( e:any) {
@@ -113,19 +106,6 @@ const SearchBar: React.FC<Props> = ({inputRef, setActiveSearch, setSearchResults
     }, 500);
 
     return (
-        <div>
-            {/* <input
-                // className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded text-sm focus:outline-none"
-                type="search"
-                name="search"
-                ref={inputRef}
-                placeholder="Search for Stocks..."
-                onChange={handleSearch}
-                autoComplete="off"
-                onFocus={handleFocus ? handleFocus : undefined}
-                onBlur={handleBlur ? handleBlur : undefined}
-            /> */}
-
         <InputContainer>
             <InputInnerContainer>
                 <LeftSideIconContainer>
@@ -141,8 +121,7 @@ const SearchBar: React.FC<Props> = ({inputRef, setActiveSearch, setSearchResults
                     spellCheck='false'
                 />
             </InputInnerContainer>
-    </InputContainer>
-        </div>
+        </InputContainer>
     )
 }
 

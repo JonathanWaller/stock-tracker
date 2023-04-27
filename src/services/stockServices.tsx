@@ -4,9 +4,6 @@ import { fetchStockCandles, fetchFinancials, fetchCompanyProfile2, fetchNews } f
 export const formatCandleData = ( data: any, stock: string ) => {
     const formatted: any = {}
 
-    // delete Object.assign( helpMe, {['close']: helpMe['c']}) ['c'];
-                    // delete Object.assign( helpMe, {['low']: helpMe['l']}) ['l'];
-
     for( const [key, value] of Object.entries(stockCodeMapping)) {
         delete Object.assign( data, {[value]: data[key]}) [key];
     }

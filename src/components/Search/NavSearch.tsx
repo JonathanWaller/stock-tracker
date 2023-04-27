@@ -1,11 +1,11 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, MouseEvent } from "react";
 import { useRouter } from "next/router";
-import SearchBar from "../SearchBar";
+import SearchBar from "./SearchBar";
 import styled from "styled-components";
 
 import { Stock } from "@/types/stock";
 
-import { tertiaryDark, linkHoverFill, inputHoverFill, primaryButtonHover } from "@/styles/colors";
+import { tertiaryDark, inputHoverFill } from "@/styles/colors";
 import { truncateStringFn } from "@/services/generalServices";
 
 const Popover = styled.div<{isActive?: boolean}>`
@@ -79,6 +79,8 @@ const NavSearch = () => {
 
     const handleStockClick = (stockSymbol: string) => {
         if( inputRef.current) inputRef.current.value = '';
+        setSearchResults([]);
+
         router.push(`/detail/search?stock=${stockSymbol}`)
     }
 

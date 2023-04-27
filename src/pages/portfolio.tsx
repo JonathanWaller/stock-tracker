@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, MouseEvent } from 'react';
 import { GetServerSideProps } from 'next';
 import { InferGetStaticPropsType } from 'next'
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +21,8 @@ import { addListItem, removeFromList } from '@/redux/listSlice';
 import { savedListSelector } from '@/redux/listSelector';
 import { breakpoints } from '@/styles/breakpoints';
 
+import { StockHistory, StockData } from '@/types/stock';
+
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -31,13 +33,6 @@ const Container = styled.div`
         align-items: center;
         padding-top: 60px;
     }
-`
-
-const ListContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    border: 1px solid ${inputHoverFill};
-    border-radius: 10px;
 `
 
 const ListItem = styled.div`
@@ -88,13 +83,13 @@ const Portfolio = ({apiKey}: InferGetStaticPropsType<typeof getServerSideProps> 
     const router = useRouter();
     const width = useWindowWidth();
     const { savedList } = useSelector( ( state: RootState ) => ( { savedList: savedListSelector( state )}))
-    const [ candleData, setCandleData ] = useState<any>()
+    const [ candleData, setCandleData ] = useState<StockHistory[]>()
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string>('')
 
     const isSaved = (ticker: string) => savedList.includes(ticker);
 
-    const handleClick = (e: any, ticker: string) => {
+    const handleClick = (e: MouseEvent<HTMLButtonElement>, ticker: string) => {
         e.stopPropagation();
         return isSaved(ticker) ? dispatch( removeFromList( ticker) ) : dispatch(addListItem( ticker ));
     }
@@ -107,8 +102,8 @@ const Portfolio = ({apiKey}: InferGetStaticPropsType<typeof getServerSideProps> 
 
                 const unresolvedPromises = stocks.map( async (stock: string ) => {
                     try {
-                        const helpMe: any = await fetchStockCandles(stock)
-                        return formatCandleData( helpMe, stock )
+                        const stockData: StockData = await fetchStockCandles(stock)
+                        return formatCandleData( stockData, stock )
                     } catch ( e: any) {
                         console.log(`Error loading stock data - ${e.message}`)
                         setError('Error retrieving list data')
@@ -121,7 +116,6 @@ const Portfolio = ({apiKey}: InferGetStaticPropsType<typeof getServerSideProps> 
             }
             fetchData(savedList)
         }
-        
       }, [savedList])
 
     return(

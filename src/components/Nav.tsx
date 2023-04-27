@@ -5,7 +5,6 @@ import Image from 'next/image';
 
 import Logo from '../../public/st-logo.png';
 
-
 const NavContainer = styled.div`
     display: flex;
     justify-content: space-between;
@@ -29,18 +28,12 @@ const Nav = () => {
     return(
         <NavContainer>
             <Link href={'/'}>
-                <Image
-                    src={Logo}
-                    alt="logo"
-                    width={35}
-                    height={35}
-                />
+                <Image src={Logo} alt="logo" width={35} height={35} />
             </Link>
             <NavInnerContainer>
                 <Link href={'/portfolio'}>Watch List</Link>
                 <NavSearch />
             </NavInnerContainer>
-            
         </NavContainer>
     )
 }
