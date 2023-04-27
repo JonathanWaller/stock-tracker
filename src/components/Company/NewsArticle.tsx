@@ -1,18 +1,9 @@
 import styled from "styled-components";
-import { lightGray, secondaryDark, tertiaryDark } from "@/styles/colors";
+import { lightGray, tertiaryDark } from "@/styles/colors";
 
 import { StockNews } from "@/types/stock";
 
 import { getReadableTimeSince } from "@/services/dateServices";
-
-// const NewsGroup = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   gap: 10px;
-//   margin-top: 20px;
-//   border: 1px solid green;
-//   margin-bottom: 20px;
-// `
 
 const NewsItem = styled.div`
     display: flex;

@@ -65,8 +65,6 @@ const ButtonContainer = styled.div`
   width: 200px;
 `
 
-// const Loading
-
 const Detail = () => {
   const router = useRouter()
   const dispatch = useDispatch();
@@ -149,7 +147,7 @@ const Detail = () => {
               </InfoContainer>
           </DetailsContainer>
           )
-          : 'loading'
+          : <Loader />
         }
       </div>
   )

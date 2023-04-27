@@ -45,13 +45,8 @@ const Group = styled.div`
     gap: 5px;
 `
 
-const Summary = styled.div`
-
-`
-
 interface Props {
     companyProfile: CompanyProfile;
-    // data: string;
 }
 
 const CompanyInfo: React.FC<Props> = ({companyProfile}) => {
@@ -80,20 +75,6 @@ const CompanyInfo: React.FC<Props> = ({companyProfile}) => {
             </ColumnTwo>
         </Table>
     )
-
-    // return (
-    //     <Container>
-    //         {
-    //             detailsInfo.map( ( stat:string, index: number) => (
-    //                 <>
-    //                 <div>{stat}</div>
-    //                 {/* @ts-ignore */}
-    //                 <div>{companyProfile && companyProfile[detailsInfoMapping[stat]]}</div>
-    //                 </>
-    //             ))
-    //         }
-    //     </Container>
-    // )
 }
 
 export default CompanyInfo;

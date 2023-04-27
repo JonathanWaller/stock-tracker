@@ -13,8 +13,6 @@ export const listSlice = createSlice( {
     name: 'list',
     initialState,
     reducers: {
-        // handle synchornous actions
-
         addListItem: ( state, action: PayloadAction<string> ) => {
             state.savedList = [...state.savedList, action.payload]
         },

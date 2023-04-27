@@ -27,7 +27,7 @@ export interface CompanyProfile {
 
 export interface StockHistory {
     stock: string;
-    stockData: {high: number}[]
+    stockData: {high: number}
 }
 
 export interface Company {
@@ -36,3 +36,5 @@ export interface Company {
     financials:StockFinancials;
     companyProfile: CompanyProfile
 }
+
+export type StockData = {[key:string]: number[]}

@@ -35,7 +35,6 @@ const Group = styled.div`
 
 
 interface Props {
-    // title: string;
     financials: StockFinancials;
 }   
 

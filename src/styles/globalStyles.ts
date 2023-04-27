@@ -1,5 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import { SUPPORT_APP_BLACK } from "./colors";
 
 
 export const GlobalStyle = createGlobalStyle`
@@ -23,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
         sans-serif;
   
-      background: ${SUPPORT_APP_BLACK};
+      background: black;
       height: 100vh;
       overflow: hidden;
     }

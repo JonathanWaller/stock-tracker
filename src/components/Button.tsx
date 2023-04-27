@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {MouseEvent} from 'react'
 import CSS from 'csstype';
 import styled from 'styled-components'
 
@@ -54,7 +54,7 @@ interface ButtonProps {
     children: React.ReactNode;
     type: 'primary' |  'danger';
     disabled?: boolean;
-    onClick: (e?: any) => void;
+    onClick: (e?: MouseEvent) => void;
     style?: CSS.Properties;
 }
 

@@ -1,23 +1,5 @@
-// import { useEffect } from 'react';
-// import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next';
-
-// import { InferGetStaticPropsType } from 'next'
-
-// import styles from '../styles/Home.module.css';
-
 import styled from 'styled-components';
-
 import { breakpoints } from '@/styles/breakpoints';
-
-// export const getServerSideProps: GetServerSideProps = async(context) => {
-//   return {
-//    props: {
-//     // secret: props.env.NAME
-//       // secret: process.env.NAME,
-//       apiKey: process.env.FINN_KEY
-//    }
-//   }
-//  }
 
 
 const Container = styled.div`
