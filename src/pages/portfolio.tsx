@@ -21,7 +21,7 @@ import { addListItem, removeFromList } from '@/redux/listSlice';
 import { savedListSelector } from '@/redux/listSelector';
 import { breakpoints } from '@/styles/breakpoints';
 
-import { StockHistory, StockData } from '@/types/stock';
+import { StockHistory, StockData, SavedStock } from '@/types/stock';
 
 const Container = styled.div`
     display: flex;
@@ -35,23 +35,32 @@ const Container = styled.div`
     }
 `
 
+const ListContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
 const ListItem = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 40px;
+    padding: 35px 200px;
 
     &:hover {
         cursor: pointer;
         border-radius: 4px;
-        background: ${inputHoverFill};
+        border: 2px solid ${inputHoverFill};
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.12);
     }
 
     @media( max-width: ${breakpoints.sm}px) {
-        // border: 1px solid green;
         flex-direction: column;
-        gap: 10px;
+        gap: 20px;
     }
+
+    @media( max-width: ${breakpoints.md}px) {
+        padding: 35px 80px;
+     }
 `
 
 const ButtonContainer = styled.div`
@@ -61,6 +70,17 @@ const ButtonContainer = styled.div`
 const Title = styled.div`
   font-size: 26px;
 `
+
+const StyledStock = styled.div`
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+
+    @media( max-width: ${breakpoints.sm}px) {
+        align-items: center;
+    }
+`
+
 const EmptyText = styled.div`
     color: ${lightGray};
     height: 100%;
@@ -87,23 +107,23 @@ const Portfolio = ({apiKey}: InferGetStaticPropsType<typeof getServerSideProps> 
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string>('')
 
-    const isSaved = (ticker: string) => savedList.includes(ticker);
+    const isSaved = ( ticker: string) => savedList.find( (item: SavedStock) => item.ticker === ticker)
 
-    const handleClick = (e: MouseEvent<HTMLButtonElement>, ticker: string) => {
+    const handleClick = (e: MouseEvent<HTMLButtonElement>, stock: SavedStock) => {
         e.stopPropagation();
-        return isSaved(ticker) ? dispatch( removeFromList( ticker) ) : dispatch(addListItem( ticker ));
+        return isSaved(stock.ticker) ? dispatch( removeFromList( stock.ticker) ) : dispatch(addListItem( stock ));
     }
 
     const handleStockClick = (stockSymbol: string) => router.push(`/detail/search?stock=${stockSymbol}`);
 
     useEffect( () => {
         if( savedList && savedList.length) {
-            const fetchData = async( stocks: string[]) => {
+            const fetchData = async( stocks: SavedStock[]) => {
 
-                const unresolvedPromises = stocks.map( async (stock: string ) => {
+                const unresolvedPromises = stocks.map( async (stock: SavedStock ) => {
                     try {
-                        const stockData: StockData = await fetchStockCandles(stock)
-                        return formatCandleData( stockData, stock )
+                        const stockData: StockData = await fetchStockCandles(stock.ticker)
+                        return formatCandleData( stockData, stock.ticker )
                     } catch ( e: any) {
                         console.log(`Error loading stock data - ${e.message}`)
                         setError('Error retrieving list data')
@@ -127,21 +147,26 @@ const Portfolio = ({apiKey}: InferGetStaticPropsType<typeof getServerSideProps> 
                 <Container>
                     { width > breakpoints.sm && <StockChart stockData={candleData} />   }
                     <Title>Your List</Title>
+                    <ListContainer>
                     {
-                        savedList.map( (item: string, index: number) => (
-                            <ListItem key={index} onClick={()=>handleStockClick(item)}>
-                                <div>{item}</div>
+                        savedList.map( (item: SavedStock, index: number) => (
+                            <ListItem key={index} onClick={()=>handleStockClick(item.ticker)}>
+                                <StyledStock>
+                                    <div>{item.ticker}</div>
+                                    <div>{item.name}</div>
+                                </StyledStock>
                                 <ButtonContainer>
                                 <Button 
-                                    type={isSaved(item) ? 'danger' : 'primary'}
+                                    type={isSaved(item.ticker) ? 'danger' : 'primary'}
                                     onClick={(e)=>{handleClick(e, item)}}
                                     >
-                                    {isSaved(item) ? '- Remove from list' : '+ Add to list' }
+                                    {isSaved(item.ticker) ? 'Remove from list' : '+ Add to list' }
                                     </Button> 
                                 </ButtonContainer>
                             </ListItem>
                         ))
                     } 
+                    </ListContainer>
                 </Container>
                 : <EmptyText>You do not have any items on your list.</EmptyText>
             }

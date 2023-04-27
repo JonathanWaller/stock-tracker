@@ -38,3 +38,8 @@ export interface Company {
 }
 
 export type StockData = {[key:string]: number[]}
+
+export interface SavedStock {
+    name: string;
+    ticker: string;
+}
