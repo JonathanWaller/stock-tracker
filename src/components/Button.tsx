@@ -34,14 +34,12 @@ const StyledButton = styled.div<{disabled: boolean, type: 'primary'|'danger'}>`
     `}
 
     transition: background-color ease-in-out 150ms;
-
     width: 100%;
-
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 12px 20px;
+    padding: 18px 20px;
 
     font-weight: 400;
     font-size: 14px;

@@ -18,7 +18,7 @@ import { RootState } from '@/store';
 
 import { fetchStockDetails } from '@/services/stockServices';
 
-import { Company, StockNews } from '@/types/stock';
+import { Company, SavedStock, StockNews } from '@/types/stock';
 import { breakpoints } from '@/styles/breakpoints';
 
 const DetailsContainer = styled.div`
@@ -75,13 +75,13 @@ const Detail = () => {
   const [error, setError] = useState<string>('')
   const [company, setCompany] = useState<Company>();
 
-  const checkIsSaved = (ticker: string) =>  savedList.includes(ticker);
+  const checkIsSaved = ( ticker: string) => savedList.find( (item: SavedStock) => item.ticker === ticker)
 
   const isSaved = useMemo( () => {
     if( company?.companyProfile?.ticker || company?.priceHistory?.stock ) return checkIsSaved(company.companyProfile?.ticker || company.priceHistory?.stock )  
   },[company, savedList])
 
-  const handleClick = (ticker: string) => isSaved ? dispatch( removeFromList( ticker) ) : dispatch(addListItem( ticker ))
+  const handleClick = (stock: {ticker: string, name: string}) => isSaved ? dispatch( removeFromList( stock.ticker) ) : dispatch(addListItem( stock ))
 
   useEffect( () => {
     const controller = new AbortController();
@@ -119,9 +119,10 @@ const Detail = () => {
               <ButtonContainer>
                 <Button 
                   type={isSaved ? 'danger' : 'primary'}
-
-                  // @ts-ignore
-                  onClick={()=>{handleClick(company.companyProfile?.ticker || company.priceHistory?.stock)}}
+                  onClick={()=>handleClick( company.companyProfile?.ticker 
+                    ? {ticker: company.companyProfile.ticker, name: company.companyProfile.ticker || 'N/A' }
+                    : { ticker: company.priceHistory?.stock, name: 'N/A'}
+                  )}
                 >
                   {isSaved ? '- Remove from list' : '+ Add to list' }
                 </Button>      
